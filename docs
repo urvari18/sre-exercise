@@ -2,31 +2,31 @@ To design and implement a CI/CD pipeline for a single-page web application built
 Here are the steps to set up the CI/CD pipeline:
   
 1.	`Source Code Repository`:
-•	Create a Git repository for your Node.js web application.
-•	Place your Node.js web application source code in the repository.
+  •	Create a Git repository for your Node.js web application.
+  •	Place your Node.js web application source code in the repository.
 2.	Infrastructure as Code:
-•	Use Terraform to define the infrastructure required for hosting the web application (e.g., cloud server, network configuration, etc.).
-•	Write a Terraform configuration file (e.g., main.tf) to provision the necessary resources. Include any dependencies required for running the web application (e.g., Node.js runtime).
-•	Commit the Terraform configuration file to your Git repository.
+  •	Use Terraform to define the infrastructure required for hosting the web application (e.g., cloud server, network configuration, etc.).
+  •	Write a Terraform configuration file (e.g., main.tf) to provision the necessary resources. Include any dependencies required for running the web application (e.g., Node.js runtime).
+  •	Commit the Terraform configuration file to your Git repository.
 3.	CI/CD Pipeline Configuration:
-•	Create a .gitlab-ci.yml file in the root of your Git repository. This file describes the stages and jobs of your CI/CD pipeline.
-•	Configure the pipeline stages for building, testing, and deploying the web application.
+  •	Create a .gitlab-ci.yml file in the root of your Git repository. This file describes the stages and jobs of your CI/CD pipeline.
+  •	Configure the pipeline stages for building, testing, and deploying the web application.
 4.	CI/CD Pipeline Stages:
 •	`Build Stage`:
-•	In the build stage, you'll install the project dependencies and build the web application.
-•	Use a job to install Node.js and the required dependencies by specifying the Node.js version and running npm install.
-•	Add a job to build the web application by running any necessary build commands (e.g., npm run build).
-•	Ensure the build artifacts are stored for later stages.
+  •	In the build stage, you'll install the project dependencies and build the web application.
+  •	Use a job to install Node.js and the required dependencies by specifying the Node.js version and running npm install.
+  •	Add a job to build the web application by running any necessary build commands (e.g., npm run build).
+  •	Ensure the build artifacts are stored for later stages.
 •	`Test Stage`:
-•	In the test stage, you'll run tests to validate the functionality of your web application.
-•	Use a job to run tests by executing appropriate test commands (e.g., npm run test).
-•	Ensure the test results are captured and accessible.
+  •	In the test stage, you'll run tests to validate the functionality of your web application.
+  •	Use a job to run tests by executing appropriate test commands (e.g., npm run test).
+  •	Ensure the test results are captured and accessible.
 •	`Deploy Stage`:
-•	In the deploy stage, you'll deploy the web application to the defined infrastructure.
-•	Use a job to deploy the application by running the necessary deployment commands (e.g., copying the build artifacts to the server).
-•	You can use tools like SSH or a deployment agent to connect to the infrastructure and deploy the web application.
-•	Optionally, you can include a step to clean up any previous deployments or perform blue-green deployment for zero-downtime updates.
+  •	In the deploy stage, you'll deploy the web application to the defined infrastructure.
+  •	Use a job to deploy the application by running the necessary deployment commands (e.g., copying the build artifacts to the server).
+  •	You can use tools like SSH or a deployment agent to connect to the infrastructure and deploy the web application.
+  •	Optionally, you can include a step to clean up any previous deployments or perform blue-green deployment for zero-downtime updates.
 5.	`Web Application Endpoint URL`:
-•	After the deployment stage, your web application should be accessible at a specific endpoint URL.
-•	Depending on your infrastructure setup, this could be an IP address, domain, or load balancer URL.
+  •	After the deployment stage, your web application should be accessible at a specific endpoint URL.
+  •	Depending on your infrastructure setup, this could be an IP address, domain, or load balancer URL.
 
