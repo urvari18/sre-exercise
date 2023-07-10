@@ -22,9 +22,6 @@ resource "aws_instance" "web_server" {
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
     sudo apt-get install -y nodejs
   EOF
-
-  # Defined the desired number of instances 
-  # count = 2
 }
 
 # Output the public IP address of the web server
