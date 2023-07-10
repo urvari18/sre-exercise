@@ -3,27 +3,40 @@ stages:
   - test
   - deploy
 
+variables:
+  # Customize these variables based on your project and infrastructure
+  APP_NAME: my-web-application
+  AWS_ACCESS_KEY: YOUR_AWS_ACCESS_KEY
+  AWS_SECRET_KEY: YOUR_AWS_SECRET_KEY
+  AWS_REGION: us-west-2
+  SSH_PRIVATE_KEY: |
+    -----BEGIN RSA PRIVATE KEY-----
+    <YOUR_PRIVATE_KEY_HERE>
+    -----END RSA PRIVATE KEY-----
+
+before_script:
+  - npm install
+
 build:
   stage: build
-  image: docker:latest
-  services:
-    - docker:dind
   script:
-    - docker build -t my-app .
-    - docker tag my-app:latest sre-exercise/my-app:$CI_COMMIT_SHORT_SHA
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
 
 test:
   stage: test
-  image: node:latest
   script:
-    - npm install
-    - npm test
+    - npm run test
 
 deploy:
   stage: deploy
-  image: docker:latest
-  services:
-    - docker:dind
+  before_script:
+    - apt-get update && apt-get install -y openssh-client
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H your-server-ip >> ~/.ssh/known_hosts
   script:
-    - docker push sre-exercise/my-app:$CI_COMMIT_SHORT_SHA
-    - kubectl apply -f kubernetes/deployment.yaml
+    - scp -r dist/* your-server-user@your-server-ip:/var/www/html/$APP_NAME
