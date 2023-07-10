@@ -30,3 +30,21 @@ Here are the steps to set up the CI/CD pipeline:
   •	After the deployment stage, your web application should be accessible at a specific endpoint URL.
   •	Depending on your infrastructure setup, this could be an IP address, domain, or load balancer URL.
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+To use this Terraform configuration file:
+
+• Replace the placeholder values, such as YOUR_AWS_ACCESS_KEY, YOUR_AWS_SECRET_KEY, your-key-pair-name, and the ami value with appropriate values for your AWS account and setup.
+• Open a terminal and navigate to the project directory.
+• Initialize the Terraform project by running terraform init.
+• Plan and review the changes by running terraform plan.
+• Apply the changes and provision the infrastructure by running terraform apply.
+• After the infrastructure is provisioned, Terraform will output the public IP address of the web server. You can use this IP address to access  web application.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+To use this  .gitlab-ci.yml file:
+
+• The pipeline is divided into three stages: build, test, and deploy.
+• The before_script section installs the project dependencies before each job.
+• The build job runs the npm run build command to build the web application. The build artifacts are stored as artifacts to be used in the deployment stage.
+• The test job runs the npm run test command to execute tests for the web application.
+• The deploy job is responsible for deploying the web application to the server. It uses SSH to connect to the server and secure copy (scp) to transfer the build artifacts to the server's /var/www/html/$APP_NAME directory.
